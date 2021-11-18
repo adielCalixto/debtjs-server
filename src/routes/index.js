@@ -8,4 +8,6 @@ require("fs").readdirSync(path).forEach(function(folder) {
   require(join(path, folder, "routes"))(routes);
 });
 
+require("../auth/auth.routes")(routes)
+
 module.exports = routes;

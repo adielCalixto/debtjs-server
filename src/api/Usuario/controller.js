@@ -1,4 +1,6 @@
 const Usuario = require("./model")
+const { createHash } = require("crypto")
+const permissions = require("../../config/permissions")
 
 module.exports = {
     async index(req, res) {
@@ -14,7 +16,11 @@ module.exports = {
 
     async create(req, res) {
         const { nome, email, password, role } = req.body;
-        const result = await Usuario.create({ nome, email, password, role })
+
+        const hash = createHash('sha1') 
+        hash.update(password)
+
+        const result = await Usuario.create({ nome, email, password: hash.digest('hex'), role })
         res.json(result);
     },
 
