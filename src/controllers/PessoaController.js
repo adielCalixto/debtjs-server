@@ -14,13 +14,18 @@ module.exports = {
 
     async create(req, res) {
         const { nome, cpf, telefone, email } = req.body;
-        const result = await Pessoa.create({ valor, usuario_id, pessoa_id, status });
+        const result = await Pessoa.create({ nome, cpf, telefone, email });
         res.json(result);
     },
 
     async update(req, res) {
-        const { valor, usuario_id, pessoa_id, status } = req.body;
-        const result = await Pessoa.update({ valor, usuario_id, pessoa_id, status });
+        const { nome, cpf, telefone, email } = req.body;
+        const id = req.params.pessoa_id;
+        const result = await Pessoa.update({ nome, cpf, telefone, email }, {
+            where: {
+                pessoa_id: id,
+            }
+        });
         res.json(result);
     },
 
