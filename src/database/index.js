@@ -1,28 +1,31 @@
 const Sequelize = require("sequelize")
 const config = require("../config/database")
+const { join } = require("path");
 
-const sequelize = new Sequelize(config);
+var sequelize = new Sequelize(config);
 
 (async function() {
-    try {
-        await sequelize.authenticate()
-        console.log("it works :)")
-    } catch(error) {
-        console.log("it doesn't work :(")
-        console.log(error)
-    }
+  try {
+      await sequelize.authenticate()
+      console.log("it works :)")
+  } catch(error) {
+      console.log("it doesn't work :(")
+      console.log(error)
+  }
 })()
 
-const Pessoa = require("../models/Pessoa");
-const Usuario = require("../models/Usuario");
-const Divida = require("../models/Divida");
-
-Pessoa.init(sequelize)
-Usuario.init(sequelize)
-Divida.init(sequelize)
-
-Pessoa.associate(sequelize.models)
-Usuario.associate(sequelize.models)
-Divida.associate(sequelize.models)
+const path = join(__dirname, "../api");
+let models = [];
+require("fs").readdirSync(path).forEach((folder) => {
+  const model = require(join(path, folder, "model"));
+  model.init(sequelize)
+  models.push(model);
+});
+models.forEach(model => {
+  if(model.associate) {
+    model.associate(sequelize.models)
+  }
+})
+models = null;
 
 module.exports = sequelize;
