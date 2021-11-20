@@ -17,7 +17,7 @@ const auth = {
             const payload = {
                 nome: result.nome,
                 role: result.role,
-                id: result.id
+                id: result.usuario_id
             }
 
             const hash = createHash('sha1') 

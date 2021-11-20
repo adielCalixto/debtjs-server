@@ -2,6 +2,8 @@ module.exports = (routes) => {
     const Pessoa = require("./controller");
 
     routes.get("/pessoas", Pessoa.index);
+    routes.get("/pessoas/:pessoa_cpf/usecpf", Pessoa.bycpf);
+    routes.get("/pessoas/:pessoa_nome/usenome", Pessoa.bynome);
     routes.get("/pessoas/:pessoa_id/hasdividas", Pessoa.hasDividas);
     routes.get("/pessoas/:pessoa_id", Pessoa.byPk);
     routes.get("/pessoas/:pessoa_id/dividas", Pessoa.getDividas);

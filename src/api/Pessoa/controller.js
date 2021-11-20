@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const Pessoa = require("./model")
 
 module.exports = {
@@ -40,6 +41,22 @@ module.exports = {
     async getDividas(req, res) {
         const id = req.params.pessoa_id;
         const result = await Pessoa.findByPk(id, { include: 'dividas' });
+        res.json(result);
+    },
+
+    async bycpf(req, res) {
+        const cpf = req.params.pessoa_cpf;
+        const result = await Pessoa.findOne({ where: { cpf } });
+        res.json(result);
+    },
+
+    async bynome(req, res) {
+        const nome = req.params.pessoa_nome;
+        const result = await Pessoa.findAll({ where: {
+            nome: {
+                [Op.like]: ('%'+nome+'%')
+            }
+        } });
         res.json(result);
     },
 

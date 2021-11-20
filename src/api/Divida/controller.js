@@ -13,7 +13,8 @@ module.exports = {
     },
 
     async create(req, res) {
-        const { valor, usuario_id, pessoa_id, status } = req.body;
+        const { valor, pessoa_id, status } = req.body;
+        const usuario_id = req.payload.id
         const result = await Divida.create({ valor, usuario_id, pessoa_id, status });
         res.json(result);
     },
