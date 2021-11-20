@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const config = {
     database: process.env.DB_NAME,
     username: process.env.DB_USERNAME,
