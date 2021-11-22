@@ -7,12 +7,12 @@ const cors = require("cors")
 
 const routes = require("./routes")
 const connection = require("./database")
-const authMiddleware = require("./auth/auth.middleware")
-const unless = require("./routes/utils/unless")
+const authToken = require("./api/middlewares/auth_token")
+const unless = require("./api/utils/unless")
 
 app.use(express.json())
 app.use(cors())
-app.use(unless('/usuarios/login', authMiddleware))
+app.use(unless('/usuarios/login', authToken))
 app.use(routes)
 
 const port = 3000
