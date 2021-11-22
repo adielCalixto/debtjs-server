@@ -14,12 +14,18 @@ var sequelize = new Sequelize(config);
   }
 })()
 
-const path = join(__dirname, "../api");
+const path = join(__dirname, "../api/components");
 let models = [];
 require("fs").readdirSync(path).forEach((folder) => {
-  const model = require(join(path, folder, "model"));
-  model.init(sequelize)
-  models.push(model);
+  try {
+    
+    const model = require(join(path, folder, "model"));
+    model.init(sequelize)
+    models.push(model);
+
+  } catch(err) {
+    return;
+  }
 });
 models.forEach(model => {
   if(model.associate) {
