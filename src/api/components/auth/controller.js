@@ -1,6 +1,6 @@
-const Usuario = require("../api/Usuario/model");
+const Usuario = require("../usuario/model");
 const jwt = require("jsonwebtoken")
-const permissions = require("../config/permissions")
+const permissions = require("../../../config/permissions")
 const { createHash } = require("crypto")
 
 const auth = {

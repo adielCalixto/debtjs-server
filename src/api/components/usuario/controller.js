@@ -1,6 +1,5 @@
 const Usuario = require("./model")
 const { createHash } = require("crypto")
-const permissions = require("../../config/permissions")
 
 module.exports = {
     async index(req, res) {
