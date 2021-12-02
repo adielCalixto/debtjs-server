@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const Divida = require("./model")
 
 module.exports = {
@@ -37,4 +38,14 @@ module.exports = {
         }});
         res.json(result);
     },
+
+    async byValue(req, res) {
+        const valor = req.params.divida_valor;
+        const result = await Divida.findAll({ where: {
+            valor: {
+                [Op.lte]: valor
+            }
+        }});
+        res.json(result);
+    }
 }

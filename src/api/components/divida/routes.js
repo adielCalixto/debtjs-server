@@ -3,6 +3,7 @@ module.exports = (routes) => {
 
     routes.get("/dividas", Divida.index);
     routes.get("/dividas/:divida_id", Divida.byPk);
+    routes.get("/dividas/:divida_valor/valor", Divida.byValue);
     routes.post("/dividas/create", Divida.create);
     routes.put("/dividas/:divida_id/update", Divida.update);
     routes.delete("/dividas/:divida_id/delete", Divida.delete);
