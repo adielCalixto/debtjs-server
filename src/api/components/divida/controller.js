@@ -3,7 +3,31 @@ const Divida = require("./model")
 
 module.exports = {
     async index(req, res) {
-        const result = await Divida.findAll()
+        const where = {}
+        const { valor, status, limit = 10, offset = 0, data } = req.query
+
+        where[Op.and] = []
+        if(status) {
+            where[Op.and].push({
+                status
+            })
+        }
+        if(valor) {
+            where[Op.and].push({
+                valor: {
+                    [Op.lte]: valor
+                }
+            })
+        }
+        if(data) {
+            where[Op.and].push({
+                created_at: {
+                    [Op.lte]: data
+                }
+            })
+        }
+
+        const result = await Divida.findAll({ where, limit: parseInt(limit), offset: parseInt(offset), order: [['created_at', 'DESC']] })
         res.json(result);
     },
 
