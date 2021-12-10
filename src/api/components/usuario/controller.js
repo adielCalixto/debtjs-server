@@ -1,9 +1,29 @@
 const Usuario = require("./model")
 const { createHash } = require("crypto")
+const { Op } = require("sequelize")
 
 module.exports = {
     async index(req, res) {
-        const result = await Usuario.findAll()
+        const { nome, email, limit, offset, groupby, orderby } = req.query
+        const order = []
+        const where = {}
+        where[Op.and] = []
+
+        if(groupby) {
+            order.push([groupby, orderby])
+        }
+        if(nome) {
+            where[Op.and].push({
+                nome: {
+                    [Op.like]: `%${nome}%`
+                }
+            })
+        }
+        if(email) {
+            where[Op.and].push({ email })
+        }
+
+        const result = await Usuario.findAll({ where, limit, offset, order })
         res.json(result);
     },
 
