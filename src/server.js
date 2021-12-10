@@ -7,7 +7,7 @@ const cors = require("cors")
 
 const routes = require("./routes")
 const connection = require("./database")
-const authToken = require("./api/middlewares/auth_token")
+const authToken = require("./api/middlewares/authToken")
 const unless = require("./api/utils/unless")
 
 app.use(express.json())

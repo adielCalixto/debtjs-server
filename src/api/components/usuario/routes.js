@@ -2,7 +2,7 @@ const schemas = require("./schemas")
 
 module.exports = (routes) => {
     const Usuario = require("./controller");
-    const createPermission = require("../../middlewares/create_permission")
+    const createPermission = require("../../middlewares/createUserPermission")
 
     routes.get("/users", schemas.findUserSchema, Usuario.index);
     routes.get("/users/:user_id", Usuario.byPk);
