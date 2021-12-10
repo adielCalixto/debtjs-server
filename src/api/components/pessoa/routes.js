@@ -1,12 +1,13 @@
 const schemas = require('./schemas')
+const Pessoa = require("./controller");
 
-module.exports = (routes) => {
-    const Pessoa = require("./controller");
-
-    routes.get("/pessoas", schemas.findPersonSchema, Pessoa.index);
-    routes.get("/pessoas/:pessoa_id", Pessoa.byPk);
-    routes.get("/pessoas/:pessoa_id/dividas", Pessoa.getDividas);
-    routes.post("/pessoas/create", schemas.createPersonSchema, Pessoa.create);
-    routes.put("/pessoas/:pessoa_id/update", schemas.updatePersonSchema, Pessoa.update);
-    routes.delete("/pessoas/:pessoa_id/delete", Pessoa.delete);
+const init = function(router) {
+    router.get("/pessoas", schemas.findPersonSchema, Pessoa.index);
+    router.get("/pessoas/:pessoa_id", Pessoa.byPk);
+    router.get("/pessoas/:pessoa_id/dividas", Pessoa.getDividas);
+    router.post("/pessoas/create", schemas.createPersonSchema, Pessoa.create);
+    router.put("/pessoas/:pessoa_id/update", schemas.updatePersonSchema, Pessoa.update);
+    router.delete("/pessoas/:pessoa_id/delete", Pessoa.delete);
 };
+
+module.exports = init

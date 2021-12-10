@@ -1,11 +1,15 @@
 const { Router } = require("express")
-const routes = Router()
+const router = Router()
 
 const { join } = require("path")
+const { existsSync, readdirSync } = require("fs")
 const path = join(__dirname, "../api/components");
 
-require("fs").readdirSync(path).forEach(function(folder) {
-  require(join(path, folder, "routes"))(routes);
+readdirSync(path).forEach(function(folder) {
+  const routesPath = join(path, folder, "routes.js")
+  if(existsSync(routesPath)) {
+    require(routesPath)(router);
+  }
 });
 
-module.exports = routes;
+module.exports = router;
